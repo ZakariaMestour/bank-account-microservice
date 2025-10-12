@@ -1,4 +1,7 @@
 package poo.accountservice.repositories;
 
-public interface BankAccountRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import poo.accountservice.entities.BankAccount;
+
+public interface BankAccountRepository extends JpaRepository<BankAccount, String> {
 }
