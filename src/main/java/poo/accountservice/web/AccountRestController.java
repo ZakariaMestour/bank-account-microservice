@@ -2,8 +2,11 @@ package poo.accountservice.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import poo.accountservice.dtos.BankAccountRequestDTO;
+import poo.accountservice.dtos.BankAccountResponseDTO;
 import poo.accountservice.entities.BankAccount;
 import poo.accountservice.repositories.BankAccountRepository;
+import poo.accountservice.services.AccountService;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +16,8 @@ import java.util.UUID;
 public class AccountRestController {
     @Autowired
     private BankAccountRepository bankAccountRepository;
+    @Autowired
+    private AccountService accountService;
     @GetMapping("/bankAccounts")
     public List<BankAccount> bankAccounts() {
         return bankAccountRepository.findAll();
@@ -24,9 +29,8 @@ public class AccountRestController {
     }
 
     @PostMapping("/bankAccounts")
-    public BankAccount createBankAccount(@RequestBody BankAccount bankAccount) {
-        bankAccount.setId(UUID.randomUUID().toString());
-        return bankAccountRepository.save(bankAccount);
+    public BankAccountResponseDTO createBankAccount(@RequestBody BankAccountRequestDTO bankAccount) {
+        return accountService.addAccount(bankAccount);
     }
     @PutMapping("/bankAccounts/{id}")
     public BankAccount updateBankAccount(@PathVariable String id, @RequestBody BankAccount bankAccount) {
