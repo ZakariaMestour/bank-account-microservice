@@ -19,27 +19,25 @@ public class AccountRestController {
     @Autowired
     private AccountService accountService;
     @GetMapping("/bankAccounts")
-    public List<BankAccount> bankAccounts() {
-        return bankAccountRepository.findAll();
+    public List<BankAccountResponseDTO> bankAccounts() {
+        return accountService.getAccounts();
     }
     @GetMapping("/bankAccounts/{id}")
-    public BankAccount bankAccount(@PathVariable String id) {
-        return bankAccountRepository.findById(id)
-                .orElseThrow(()->new RuntimeException(String.format("Account %s not found",id)));
+    public BankAccountResponseDTO bankAccount(@PathVariable String id) {
+        return accountService.getAccount(id);
     }
 
     @PostMapping("/bankAccounts")
     public BankAccountResponseDTO createBankAccount(@RequestBody BankAccountRequestDTO bankAccount) {
         return accountService.addAccount(bankAccount);
     }
-    @PutMapping("/bankAccounts/{id}")
-    public BankAccount updateBankAccount(@PathVariable String id, @RequestBody BankAccount bankAccount) {
-        bankAccount.setId(id);
-        return bankAccountRepository.save(bankAccount);
+    @PutMapping("/bankAccounts")
+    public BankAccountResponseDTO updateBankAccount( @RequestBody BankAccountRequestDTO bankAccount) {
+        return accountService.updateAccount(bankAccount);
     }
     @DeleteMapping("/bankAccounts/{id}")
     public void deleteBankAccount(@PathVariable String id) {
-        bankAccountRepository.deleteById(id);
+            accountService.deleteAccount(id);
     }
 }
 
