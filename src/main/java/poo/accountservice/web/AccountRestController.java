@@ -31,9 +31,9 @@ public class AccountRestController {
     public BankAccountResponseDTO createBankAccount(@RequestBody BankAccountRequestDTO bankAccount) {
         return accountService.addAccount(bankAccount);
     }
-    @PutMapping("/bankAccounts")
-    public BankAccountResponseDTO updateBankAccount( @RequestBody BankAccountRequestDTO bankAccount) {
-        return accountService.updateAccount(bankAccount);
+    @PutMapping("/bankAccounts/{id}")
+    public BankAccountResponseDTO updateBankAccount( @RequestBody BankAccountRequestDTO bankAccount, @PathVariable String id) {
+        return accountService.updateAccount(bankAccount,id);
     }
     @DeleteMapping("/bankAccounts/{id}")
     public void deleteBankAccount(@PathVariable String id) {

@@ -19,7 +19,6 @@ import java.util.UUID;
 public class AccountServiceImpl implements AccountService {
     @Autowired
     BankAccountRepository accountRepository;
-
     @Autowired
     private AccountMapper accountMapper;
     @Autowired
@@ -36,8 +35,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public BankAccountResponseDTO updateAccount(BankAccountRequestDTO accountRequestDTO) {
+    public BankAccountResponseDTO updateAccount(BankAccountRequestDTO accountRequestDTO,String id) {
         BankAccount bankAccount = accountMapper.toBankAccount(accountRequestDTO);
+        bankAccount.setId(id);
         BankAccount savedBankAccount = accountRepository.save(bankAccount);
         BankAccountResponseDTO bankAccountResponseDTO = accountMapper.fromBankAccount(savedBankAccount);
         return bankAccountResponseDTO;
