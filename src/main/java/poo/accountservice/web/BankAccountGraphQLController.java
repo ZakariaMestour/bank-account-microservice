@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import poo.accountservice.dtos.BankAccountRequestDTO;
 import poo.accountservice.dtos.BankAccountResponseDTO;
 import poo.accountservice.entities.BankAccount;
+import poo.accountservice.entities.Customer;
 import poo.accountservice.repositories.BankAccountRepository;
+import poo.accountservice.repositories.CustomerRepository;
 import poo.accountservice.services.AccountService;
 
 import java.util.List;
@@ -19,6 +21,8 @@ public class BankAccountGraphQLController {
     private BankAccountRepository accountRepository;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private CustomerRepository customerRepository;
     @QueryMapping
     public List<BankAccount> accountsList() {
         return accountRepository.findAll();
@@ -38,6 +42,10 @@ public class BankAccountGraphQLController {
     @MutationMapping
     public void deleteBankAccount(@Argument String id) {
         accountService.deleteAccount(id);
+    }
+    @QueryMapping
+    public List<Customer> getCustomers() {
+        return customerRepository.findAll();
     }
 }
 
