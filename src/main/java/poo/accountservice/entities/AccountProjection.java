@@ -5,7 +5,7 @@ import poo.accountservice.enums.AccountType;
 
 @Projection(name = "p1", types = BankAccount.class)
 public interface AccountProjection {
-    public String getId();
-    public AccountType getType();
+    String getId();
+    AccountType getType();
 
 }
